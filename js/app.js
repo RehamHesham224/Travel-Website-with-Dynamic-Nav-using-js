@@ -1,4 +1,6 @@
+//===============================Global Variables===========================================
 const menu=document.getElementById("menu")
+    ,nav=document.getElementById("nav")
     ,sections=document.querySelectorAll("section");
 //==========================Append Li To Menu Dynamic && smooth Scroll=======================
 //Performance
@@ -49,14 +51,32 @@ const endingTime = performance.now();
 console.log('This code took ' + (endingTime - startingTime) + ' milliseconds.');
 //========================================================================================
 //=============fixed nav ..scroll down=>hide , scroll up=>show with js====================
+const media = window.matchMedia("(max-width: 900px)")
+//media query
 let prevScrollPos = window.pageYOffset;
 window.onscroll = function() {
     //fixed nav
     let currentScrollPos = window.pageYOffset;
     if (prevScrollPos > currentScrollPos) {
-        menu.style.top = "0";
+        //if you scrolling top show nav which contain menu
+        nav.style.top = "0";
+        //if it is in this media query hide menu also
+        if(media){
+            setTimeout(() => {
+                menu.style.visibility="visible";
+            }, 100);
+        }
     } else {
-        menu.style.top = "-80px";
+        //if you scrolling down hide nav which contain menu
+        nav.style.top = "-80px";
+        //if it is in this media query hide menu also
+        if(media){
+            setTimeout(() => {
+                menu.style.visibility="hidden";
+            }, 100);
+        }else{ //if it is Not in this media query show menu 
+            menu.style.visibility="visible";
+        }
     }
     prevScrollPos = currentScrollPos;
 
@@ -68,7 +88,9 @@ window.onscroll = function() {
         // document.body.scrollTop >item.getBoundingClientRect().y?item.classList.add('active'):item.classList.remove('active');
         //item id
         let Id=item.getAttribute("id");
-        if(document.body.scrollTop >item.getBoundingClientRect().y ){
+        //check if body scroll top is greater than section y offset  && less than section height plus section y offset
+        if(document.body.scrollTop >item.getBoundingClientRect().y 
+        && document.body.scrollTop<item.getBoundingClientRect().y+item.getBoundingClientRect().height ){
             //add active to item
             item.classList.add('active');
             //remove active from li
@@ -131,7 +153,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     
     //=========== Testim Script===================
     function playSlide(slide) {
-        for (var k = 0; k < testimDots.length; k++) {
+        for (let k = 0; k < testimDots.length; k++) {
             testimContent[k].classList.remove("active");
             testimContent[k].classList.remove("inactive");
             testimDots[k].classList.remove("active");
@@ -167,7 +189,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         playSlide(currentSlide += 1);
     })    
 
-    for (var l = 0; l < testimDots.length; l++) {
+    for (let l = 0; l < testimDots.length; l++) {
         testimDots[l].addEventListener("click", function() {
             playSlide(currentSlide = testimDots.indexOf(this));
         })
@@ -208,6 +230,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			
 		})
 })
+
 
 
 
