@@ -1,4 +1,4 @@
-## Landing Page with Dynamic Nav , Active Section , Links and Scroll to top Button
+## Travel Website with Dynamic Nav , Active Section , Links and Scroll to top Button
 
 Create aresponsive page with html and css and pure javascript.
 Create a dynamic links on nav , add active to current link and section , and scroll to top button
